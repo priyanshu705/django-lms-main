@@ -270,12 +270,15 @@ def application(environ, start_response):
     """Main WSGI handler"""
     path = environ.get('PATH_INFO', '/')
     
-    # Special endpoints - always accessible
-    if path == '/db-test/':
+    # Debug: Log the request
+    print(f"[Vercel] Request path: {path}")
+    
+    # Special endpoints - always accessible (exact match or starts with)
+    if path.startswith('/db-test'):
         return handle_db_test(environ, start_response)
-    elif path == '/django-diag/':
+    elif path.startswith('/django-diag'):
         return handle_django_diag(environ, start_response)
-    elif path == '/' or path == '' or path == '/health/':
+    elif path == '/' or path == '' or path.startswith('/health'):
         return handle_homepage(environ, start_response)
     
     # Django routes
@@ -318,3 +321,17 @@ def get_or_create_django_app_old():
 
 # Export for Vercel
 app = application
+
+# Vercel Serverless Function Handler (for @vercel/python)
+# This is the format Vercel expects for Python serverless functions
+from wsgiref.simple_server import make_server
+from io import BytesIO
+
+def handler(event, context):
+    """
+    Vercel serverless function handler
+    Converts Vercel's event/context to WSGI environ
+    """
+    # For now, just return the WSGI app directly
+    # Vercel's @vercel/python should handle WSGI apps automatically
+    return application
