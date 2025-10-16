@@ -109,7 +109,9 @@ def handle_django_diag(environ, start_response):
 
 def handle_homepage(environ, start_response):
     """Handle homepage with working status"""
-    django_status = "✅ Active" if _django_app else "⚠️ Loading"
+    # Prepare dynamic content variables
+    django_status_text = "Active" if _django_app else "Loading"
+    django_badge = "<div class='success-badge'>Django Active</div>" if _django_app else "<div class='warning-badge'>Django Loading</div>"
     
     status = '200 OK'
     headers = [
@@ -118,7 +120,8 @@ def handle_homepage(environ, start_response):
     ]
     start_response(status, headers)
     
-    html = f"""<!DOCTYPE html>
+    # Build HTML with CSS - using simple string concatenation to avoid f-string/format issues
+    html = """<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -174,13 +177,13 @@ def handle_homepage(environ, start_response):
             <div class="success-badge">✅ Database Connected</div>
             <div class="success-badge">✅ 48 Tables Ready</div>
             <div class="success-badge">✅ Production Deployed</div>
-            {"<div class='success-badge'>✅ Django Active</div>" if _django_app else "<div class='warning-badge'>⚠️ Django Loading</div>"}
+            <div class="success-badge">✅ """ + django_status_text + """</div>
             
             <div class="status">
                 <h3>🎉 System Status: OPERATIONAL</h3>
                 <p>✅ <strong>Database:</strong> PostgreSQL 17.5 (48 tables active)</p>
                 <p>✅ <strong>Serverless:</strong> Vercel deployment successful</p>
-                <p>✅ <strong>Backend:</strong> {django_status}</p>
+                <p>✅ <strong>Backend:</strong> Django """ + django_status_text + """</p>
             </div>
             
             <div class="feature-grid">
