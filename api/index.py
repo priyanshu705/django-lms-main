@@ -15,8 +15,6 @@ _django_app = None
 _init_error = None
 
 try:
-    import django
-    django.setup()
     from django.core.wsgi import get_wsgi_application
     _django_app = get_wsgi_application()
 except Exception as e:
