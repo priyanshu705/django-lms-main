@@ -270,17 +270,33 @@ def application(environ, start_response):
     """Main WSGI handler"""
     path = environ.get('PATH_INFO', '/')
     
-    # Special endpoints
+    # Special endpoints - always accessible
     if path == '/db-test/':
         return handle_db_test(environ, start_response)
     elif path == '/django-diag/':
         return handle_django_diag(environ, start_response)
-    elif path == '/' or path == '/health/':
+    elif path == '/' or path == '' or path == '/health/':
         return handle_homepage(environ, start_response)
     
     # Django routes
     if _django_app:
-        return _django_app(environ, start_response)
+        try:
+            return _django_app(environ, start_response)
+        except Exception as e:
+            # If Django fails, show error
+            status = '500 Internal Server Error'
+            headers = [('Content-Type', 'text/html')]
+            start_response(status, headers)
+            error_html = f"""
+            <!DOCTYPE html>
+            <html><head><title>Error</title></head>
+            <body style="font-family: Arial; padding: 50px; background: #f5f5f5;">
+                <h1 style="color: #d32f2f;">Django Error</h1>
+                <p><strong>Error:</strong> {str(e)}</p>
+                <p><a href="/">Go to Homepage</a> | <a href="/db-test/">Test Database</a></p>
+            </body></html>
+            """
+            return [error_html.encode('utf-8')]
     
     # Error fallback
     status = '500 Internal Server Error'
