@@ -1,0 +1,651 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }} | {% trans 'Learning Management System' %}{% endblock title %}
+
+{% block content %}
+<div class="min-vh-100 py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="register-card">
+                    <!-- Header -->
+                    <div class="register-header text-center mb-4">
+                        <div class="logo-container mb-3">
+                            <img src="{% static 'img/dj-lms.png' %}" alt="LMS Logo" class="register-logo">
+                        </div>
+                        <h2 class="register-title">{% trans 'Join Our Learning Community' %}</h2>
+                        <p class="register-subtitle">{% trans 'Create your student account to access courses' %}</p>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <form method="post" class="register-form" id="student-register-form">
+                        {% csrf_token %}
+                        
+                        <!-- Progress Indicator -->
+                        <div class="progress-indicator mb-4">
+                            <div class="step active" data-step="1">
+                                <span class="step-number">1</span>
+                                <span class="step-text">{% trans 'Personal Info' %}</span>
+                            </div>
+                            <div class="step" data-step="2">
+                                <span class="step-number">2</span>
+                                <span class="step-text">{% trans 'Academic Details' %}</span>
+                            </div>
+                            <div class="step" data-step="3">
+                                <span class="step-number">3</span>
+                                <span class="step-text">{% trans 'Account Setup' %}</span>
+                            </div>
+                        </div>
+
+                        <!-- Step 1: Personal Information -->
+                        <div class="form-step active" id="step-1">
+                            <h4 class="step-title">{% trans 'Personal Information' %}</h4>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.first_name }}
+                                        <label for="{{ form.first_name.id_for_label }}">
+                                            <i class="fas fa-user me-2"></i>{{ form.first_name.label }}
+                                        </label>
+                                        {% if form.first_name.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.first_name.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.last_name }}
+                                        <label for="{{ form.last_name.id_for_label }}">
+                                            <i class="fas fa-user me-2"></i>{{ form.last_name.label }}
+                                        </label>
+                                        {% if form.last_name.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.last_name.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    {{ form.email }}
+                                    <label for="{{ form.email.id_for_label }}">
+                                        <i class="fas fa-envelope me-2"></i>{{ form.email.label }}
+                                    </label>
+                                    {% if form.email.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.phone }}
+                                        <label for="{{ form.phone.id_for_label }}">
+                                            <i class="fas fa-phone me-2"></i>{{ form.phone.label }}
+                                        </label>
+                                        {% if form.phone.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.phone.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.gender }}
+                                        <label for="{{ form.gender.id_for_label }}">
+                                            <i class="fas fa-venus-mars me-2"></i>{{ form.gender.label }}
+                                        </label>
+                                        {% if form.gender.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.gender.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    {{ form.address }}
+                                    <label for="{{ form.address.id_for_label }}">
+                                        <i class="fas fa-map-marker-alt me-2"></i>{{ form.address.label }}
+                                    </label>
+                                    {% if form.address.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.address.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Academic Details -->
+                        <div class="form-step" id="step-2">
+                            <h4 class="step-title">{% trans 'Academic Details' %}</h4>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.level }}
+                                        <label for="{{ form.level.id_for_label }}">
+                                            <i class="fas fa-graduation-cap me-2"></i>{{ form.level.label }}
+                                        </label>
+                                        {% if form.level.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.level.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.program }}
+                                        <label for="{{ form.program.id_for_label }}">
+                                            <i class="fas fa-book me-2"></i>{{ form.program.label }}
+                                        </label>
+                                        {% if form.program.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.program.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Account Setup -->
+                        <div class="form-step" id="step-3">
+                            <h4 class="step-title">{% trans 'Account Setup' %}</h4>
+                            
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    {{ form.username }}
+                                    <label for="{{ form.username.id_for_label }}">
+                                        <i class="fas fa-id-card me-2"></i>{{ form.username.label }}
+                                    </label>
+                                    <div class="form-text">{{ form.username.help_text }}</div>
+                                    {% if form.username.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.username.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.password1 }}
+                                        <label for="{{ form.password1.id_for_label }}">
+                                            <i class="fas fa-lock me-2"></i>{{ form.password1.label }}
+                                        </label>
+                                        <button type="button" class="password-toggle" onclick="togglePassword('{{ form.password1.id_for_label }}', 'toggle1')">
+                                            <i class="fas fa-eye" id="toggle1"></i>
+                                        </button>
+                                        <div class="form-text">{{ form.password1.help_text }}</div>
+                                        {% if form.password1.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.password1.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        {{ form.password2 }}
+                                        <label for="{{ form.password2.id_for_label }}">
+                                            <i class="fas fa-lock me-2"></i>{{ form.password2.label }}
+                                        </label>
+                                        <button type="button" class="password-toggle" onclick="togglePassword('{{ form.password2.id_for_label }}', 'toggle2')">
+                                            <i class="fas fa-eye" id="toggle2"></i>
+                                        </button>
+                                        {% if form.password2.errors %}
+                                            <div class="invalid-feedback d-block">{{ form.password2.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-check terms-check">
+                                    {{ form.terms_accepted }}
+                                    <label class="form-check-label" for="{{ form.terms_accepted.id_for_label }}">
+                                        {{ form.terms_accepted.label }}
+                                        <a href="#" class="terms-link">{% trans 'terms and conditions' %}</a>
+                                    </label>
+                                    {% if form.terms_accepted.errors %}
+                                        <div class="invalid-feedback d-block">{{ form.terms_accepted.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Errors -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                {{ form.non_field_errors.0 }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Navigation Buttons -->
+                        <div class="form-navigation d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-secondary" id="prev-btn" onclick="previousStep()" style="display: none;">
+                                <i class="fas fa-arrow-left me-2"></i>{% trans 'Previous' %}
+                            </button>
+                            <button type="button" class="btn btn-primary" id="next-btn" onclick="nextStep()">
+                                {% trans 'Next' %}<i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                            <button type="submit" class="btn register-btn" id="submit-btn" style="display: none;">
+                                <i class="fas fa-user-plus me-2"></i>
+                                <span id="submit-btn-text">{% trans 'Create Account' %}</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Login Link -->
+                    <div class="text-center mt-4">
+                        <p class="login-text">
+                            {% trans "Already have an account?" %}
+                            <a href="{% url 'student_login' %}" class="login-link">
+                                {% trans 'Sign in here' %}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Register Card Styles */
+.register-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.register-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+/* Logo and Header */
+.register-logo {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.register-title {
+    color: #2d3748;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.register-subtitle {
+    color: #718096;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #718096;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: #667eea;
+    color: white;
+}
+
+.step.completed .step-number {
+    background: #48bb78;
+    color: white;
+}
+
+.step-text {
+    font-size: 0.8rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+.step.active .step-text {
+    color: #667eea;
+}
+
+/* Form Steps */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+}
+
+.step-title {
+    color: #2d3748;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+/* Form Styling (reuse from login) */
+.form-floating input,
+.form-floating select {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem 1rem 1rem 3rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.form-floating input:focus,
+.form-floating select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: white;
+}
+
+.form-floating label {
+    color: #718096;
+    font-weight: 500;
+    padding-left: 3rem;
+}
+
+.form-floating input:focus ~ label,
+.form-floating input:not(:placeholder-shown) ~ label,
+.form-floating select:focus ~ label,
+.form-floating select:not([value=""]) ~ label {
+    color: #667eea;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* Password Toggle */
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #718096;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* Terms and Conditions */
+.terms-check {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.terms-link {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+/* Navigation Buttons */
+.form-navigation {
+    margin-top: 2rem;
+}
+
+.register-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.register-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+/* Login Link */
+.login-text {
+    color: #718096;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.login-link {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.login-link:hover {
+    color: #5a67d8;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .register-card {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .progress-indicator {
+        margin-bottom: 1.5rem;
+    }
+    
+    .step-text {
+        font-size: 0.7rem;
+    }
+    
+    .step-number {
+        width: 35px;
+        height: 35px;
+    }
+}
+</style>
+
+<script>
+let currentStep = 1;
+const totalSteps = 3;
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateStepDisplay();
+});
+
+function nextStep() {
+    if (validateCurrentStep()) {
+        if (currentStep < totalSteps) {
+            currentStep++;
+            updateStepDisplay();
+        }
+    }
+}
+
+function previousStep() {
+    if (currentStep > 1) {
+        currentStep--;
+        updateStepDisplay();
+    }
+}
+
+function updateStepDisplay() {
+    // Hide all steps
+    document.querySelectorAll('.form-step').forEach(step => {
+        step.classList.remove('active');
+    });
+    
+    // Show current step
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    
+    // Update progress indicator
+    document.querySelectorAll('.step').forEach((step, index) => {
+        const stepNumber = index + 1;
+        step.classList.remove('active', 'completed');
+        
+        if (stepNumber < currentStep) {
+            step.classList.add('completed');
+        } else if (stepNumber === currentStep) {
+            step.classList.add('active');
+        }
+    });
+    
+    // Update navigation buttons
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+    
+    if (currentStep === totalSteps) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+}
+
+function validateCurrentStep() {
+    const currentStepElement = document.getElementById(`step-${currentStep}`);
+    const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            input.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            input.classList.remove('is-invalid');
+        }
+    });
+    
+    return isValid;
+}
+
+function togglePassword(fieldId, iconId) {
+    const passwordField = document.getElementById(fieldId);
+    const toggleIcon = document.getElementById(iconId);
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordField.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+
+// Form submission handling
+document.getElementById('student-register-form').addEventListener('submit', function(e) {
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('submit-btn-text');
+    
+    submitBtn.disabled = true;
+    btnText.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>{% trans "Creating Account..." %}';
+    
+    // Re-enable button after 10 seconds as fallback
+    setTimeout(function() {
+        submitBtn.disabled = false;
+        btnText.innerHTML = '{% trans "Create Account" %}';
+    }, 10000);
+});
+
+// Username validation
+document.getElementById('{{ form.username.id_for_label }}').addEventListener('blur', function() {
+    const username = this.value.trim();
+    if (username) {
+        validateUsername(username, this);
+    }
+});
+
+function validateUsername(username, field) {
+    fetch(`/accounts/ajax/validate-username/?username=${encodeURIComponent(username)}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.is_taken) {
+            field.classList.add('is-invalid');
+            field.classList.remove('is-valid');
+        } else {
+            field.classList.add('is-valid');
+            field.classList.remove('is-invalid');
+        }
+    })
+    .catch(error => {
+        console.log('Validation error:', error);
+    });
+}
+</script>
+{% endblock content %}

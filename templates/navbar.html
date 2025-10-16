@@ -1,0 +1,311 @@
+{% load i18n%}
+<style>
+/* Modern Navbar Styles */
+#top-navbar {
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-wrapper .toggle-btn {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	border: none;
+	border-radius: 10px;
+	padding: 0.75rem;
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.nav-wrapper .toggle-btn:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Enhanced Search Bar */
+.form-header {
+	position: relative;
+	flex: 0.8;
+	max-width: 600px;
+}
+
+.form-header input {
+	border: 2px solid #e2e8f0;
+	border-radius: 25px 0 0 25px;
+	padding: 0.75rem 1.25rem;
+	font-size: 0.95rem;
+	transition: all 0.3s ease;
+	background: rgba(255, 255, 255, 0.9);
+}
+
+.form-header input:focus {
+	border-color: #667eea;
+	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+	background: white;
+}
+
+.form-header button {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border: 2px solid #667eea;
+	border-radius: 0 25px 25px 0;
+	padding: 0.75rem 1.5rem;
+	color: white;
+	transition: all 0.3s ease;
+}
+
+.form-header button:hover {
+	background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+	transform: scale(1.02);
+}
+
+/* Enhanced User Dropdown */
+.user-dropdown .avatar {
+	border: 3px solid transparent;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	padding: 3px;
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.user-dropdown .avatar:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.user-dropdown .avatar img {
+	border-radius: 50%;
+}
+
+/* Enhanced Dropdown Menu */
+.modern-dropdown {
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.95);
+	padding: 1rem 0;
+	margin-top: 0.5rem;
+}
+
+.dropdown-header-modern {
+	padding: 1rem;
+	text-align: center;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	margin-bottom: 0.5rem;
+}
+
+.dropdown-header-modern .avatar-md {
+	border: 3px solid #667eea;
+	margin-bottom: 0.5rem;
+}
+
+.dropdown-header-modern .user-name {
+	font-weight: 600;
+	color: #2d3748;
+	margin: 0;
+}
+
+.dropdown-header-modern .last-login {
+	font-size: 0.8rem;
+	color: #718096;
+	margin: 0;
+}
+
+.modern-dropdown .dropdown-item {
+	padding: 0.75rem 1.5rem;
+	color: #4a5568;
+	transition: all 0.3s ease;
+	border-radius: 0;
+}
+
+.modern-dropdown .dropdown-item:hover {
+	background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
+	color: #667eea;
+	transform: translateX(5px);
+}
+
+.modern-dropdown .dropdown-item i {
+	width: 20px;
+	text-align: center;
+	margin-right: 0.75rem;
+	background: none;
+	font-size: 1rem;
+}
+
+.logout-btn {
+	background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+	border: none;
+	color: white;
+	padding: 0.5rem 1.5rem;
+	border-radius: 20px;
+	font-size: 0.9rem;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+	background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+	transform: scale(1.02);
+	color: white;
+}
+
+/* Authentication Buttons */
+.auth-buttons {
+	align-items: center;
+}
+
+.login-nav-btn {
+	border: 2px solid #667eea;
+	color: #667eea;
+	border-radius: 20px;
+	padding: 0.5rem 1.25rem;
+	font-weight: 500;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.login-nav-btn:hover {
+	background: #667eea;
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.register-nav-btn {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border: none;
+	color: white;
+	border-radius: 20px;
+	padding: 0.5rem 1.25rem;
+	font-weight: 500;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+.register-nav-btn:hover {
+	background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.form-header {
+		flex: 1;
+		margin: 0 1rem;
+	}
+	
+	.form-header input {
+		font-size: 0.9rem;
+		padding: 0.6rem 1rem;
+	}
+	
+	.form-header button {
+		padding: 0.6rem 1rem;
+	}
+	
+	.auth-buttons {
+		flex-direction: column;
+		gap: 0.5rem !important;
+	}
+	
+	.login-nav-btn,
+	.register-nav-btn {
+		font-size: 0.8rem;
+		padding: 0.4rem 1rem;
+	}
+}
+</style>
+
+<div id="top-navbar" class="py-2">
+	<div class="container">
+		<div class="nav-wrapper">
+
+			<button class="toggle-btn" onclick="toggleSidebar()" aria-label="Toggle navigation">
+				<i class="fas fa-bars"></i>
+			</button>
+
+			<form class="form-header" action="{% url 'query' %}" method="GET">
+				<input id="primary-search" 
+					   class="form-control" 
+					   type="text" 
+					   name="q" 
+					   value="{{ request.GET.q }}"
+					   placeholder="{% trans 'Search courses, programs, quizzes, news...' %}" 
+					   required />
+				<button class="btn" type="submit">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+
+			{% if request.user.is_authenticated %}
+			<!-- Notification Dropdown -->
+			{% include 'notifications/notification_dropdown.html' %}
+			<div class="dropdown user-dropdown">
+				<div class="avatar" data-bs-toggle="dropdown" aria-expanded="false">
+					<img src="{{ request.user.picture.url }}" alt="User Avatar">
+				</div>
+				<div class="dropdown-menu modern-dropdown" style="min-width: 16rem !important;">
+					<div class="dropdown-header-modern">
+						<div class="avatar avatar-md">
+							<img src="{{ request.user.picture.url }}" alt="User Avatar">
+						</div>
+						<p class="user-name">{{ request.user.get_full_name|default:request.user.username }}</p>
+						<p class="last-login">
+							{% trans 'Last login:' %} {{ request.user.last_login|date:"M d, Y" }}
+						</p>
+					</div>
+
+					{% if request.user.is_student %}
+					<a class="dropdown-item" href="{% url 'user_course_list' %}">
+						<i class="fas fa-book"></i>{% trans 'My Courses' %}
+					</a>
+					<a class="dropdown-item" href="{% url 'student_progress_dashboard' %}">
+						<i class="fas fa-chart-line"></i>{% trans 'My Progress' %}
+					</a>
+					{% else %}
+					<a class="dropdown-item" href="{% url 'user_course_list' %}">
+						<i class="fas fa-book"></i>{% trans 'My Courses' %}
+					</a>
+					{% endif %}
+
+					<a class="dropdown-item" href="{% url 'profile' %}">
+						<i class="fas fa-user"></i>{% trans 'Profile' %}
+					</a>
+					<a class="dropdown-item" href="{% url 'edit_profile' %}">
+						<i class="fas fa-cog"></i>{% trans 'Settings' %}
+					</a>
+					
+					<div class="dropdown-divider"></div>
+					
+					<div class="text-center px-3">
+						{% if request.user.is_student %}
+						<a class="btn logout-btn" href="{% url 'student_logout' %}">
+							<i class="fas fa-sign-out-alt me-2"></i>{% trans 'Sign Out' %}
+						</a>
+						{% else %}
+						<a class="btn logout-btn" href="{% url 'logout' %}">
+							<i class="fas fa-sign-out-alt me-2"></i>{% trans 'Sign Out' %}
+						</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% else %}
+			<!-- Login/Register Buttons for Non-Authenticated Users -->
+			<div class="auth-buttons d-flex gap-2">
+				<a href="{% url 'student_login' %}" class="btn btn-outline-primary login-nav-btn">
+					<i class="fas fa-sign-in-alt me-2"></i>{% trans 'Student Login' %}
+				</a>
+				<a href="{% url 'student_register' %}" class="btn btn-primary register-nav-btn">
+					<i class="fas fa-user-plus me-2"></i>{% trans 'Register' %}
+				</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>

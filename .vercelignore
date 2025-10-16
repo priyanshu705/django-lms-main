@@ -1,0 +1,61 @@
+# SavvyIndians LMS - Vercel Ignore File
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Media files (optional - exclude if large)
+# media/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation (optional)
+*.md
+!README.md
+!VERCEL_DEPLOYMENT_GUIDE.md
+
+# Test files
+*test*.py
+test_*/
+
+# Backup files
+*.bak
+*.backup
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Development files
+manage_clean.py
+change_admin.py
+CLEANUP_REPORT.py
+MOBILE_OPTIMIZATION_REPORT.py
